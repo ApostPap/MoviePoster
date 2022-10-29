@@ -34,6 +34,7 @@ print('duration (M:S) = ' + str(minutes) + ':' + str(seconds))
 cap.release()
 
 
+
 frames_got =[]
 
 vidcap = cv2.VideoCapture(video_file)
@@ -93,4 +94,21 @@ plt.xticks([0,50,100,150,200,255])
 plt.show()
 cv2.imwrite('frames/_dom.jpg',vis)
 
+def getDominantColor(image_file,dominant_color_quality,slice_height,slice_width):
+    
+    color_thief = ColorThief(image_file)
+    # get the dominant color
+    dominant_color = color_thief.get_color(dominant_color_quality)
+
+    slice_image = np.zeros((slice_height,slice_width,3), np.uint8)
+    slice_image[:,:] = dominant_color      # (B, G, R)
+
+    #plt.imshow(slice_image)
+    #plt.tick_params(axis='y',left = False,labelleft = False)
+   # plt.xticks([0,50,100,150,200,255])
+   # plt.show()
+    
+    #cv2.imwrite(image_file+'_dom.jpg',cv2.cvtColor(slice_image, cv2.COLOR_RGB2BGR))
+    
+    return slice_image
 
