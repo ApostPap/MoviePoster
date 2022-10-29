@@ -27,3 +27,8 @@ print('fps = ' + str(fps))
 print('number of frames = ' + str(frame_count))
 print('duration (S) = ' + str(duration))
 
+minutes = int(duration/60)
+seconds = duration%60
+print('duration (M:S) = ' + str(minutes) + ':' + str(seconds))
+
+cap.release()
