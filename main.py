@@ -84,6 +84,13 @@ for a_frame in frames_got:
     print(a_frame)
     sliced_images.append(getDominantColor(image_file = a_frame,dominant_color_quality=3,slice_height=final_image_height,slice_width=a_slice_width))
 
+    
+slice_count=1
+vis = np.concatenate((cv2.cvtColor(sliced_images[0], cv2.COLOR_RGB2BGR),cv2.cvtColor(sliced_images[1], cv2.COLOR_RGB2BGR)), axis=1)
+
+for slice_count in range(2,number_of_frames):
+    print(str(slice_count)+"/"+str(number_of_frames))
+    vis= np.concatenate((vis,cv2.cvtColor(sliced_images[slice_count], cv2.COLOR_RGB2BGR)), axis=1)
 
 
 
