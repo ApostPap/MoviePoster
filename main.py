@@ -94,6 +94,10 @@ for slice_count in range(2,number_of_frames):
 
 
 
-
+plt.imshow(vis)
+plt.tick_params(axis='y',left = False,labelleft = False)
+plt.xticks([0,50,100,150,200,255])
+plt.show()
+cv2.imwrite('frames/_dom.jpg',vis)
 
 
