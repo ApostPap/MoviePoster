@@ -34,6 +34,7 @@ print('duration (M:S) = ' + str(minutes) + ':' + str(seconds))
 cap.release()
 
 
+
 frames_got =[]
 
 vidcap = cv2.VideoCapture(video_file)
@@ -72,11 +73,49 @@ while success:
     if count > number_of_frames:
         break
 
+       
+print(count)
+done = time.time()
+elapsed = done - start
+print(elapsed)
+
+sliced_images = []
+
+for a_frame in frames_got:
+    print(a_frame)
+    sliced_images.append(getDominantColor(image_file = a_frame,dominant_color_quality=3,slice_height=final_image_height,slice_width=a_slice_width))
+
+    
+slice_count=1
+vis = np.concatenate((cv2.cvtColor(sliced_images[0], cv2.COLOR_RGB2BGR),cv2.cvtColor(sliced_images[1], cv2.COLOR_RGB2BGR)), axis=1)
+
+for slice_count in range(2,number_of_frames):
+    print(str(slice_count)+"/"+str(number_of_frames))
+    vis= np.concatenate((vis,cv2.cvtColor(sliced_images[slice_count], cv2.COLOR_RGB2BGR)), axis=1)
 
 
 
+plt.imshow(vis)
+plt.tick_params(axis='y',left = False,labelleft = False)
+plt.xticks([0,50,100,150,200,255])
+plt.show()
+cv2.imwrite('frames/_dom.jpg',vis)
 
+def getDominantColor(image_file,dominant_color_quality,slice_height,slice_width):
+    
+    color_thief = ColorThief(image_file)
+    # get the dominant color
+    dominant_color = color_thief.get_color(dominant_color_quality)
 
+    slice_image = np.zeros((slice_height,slice_width,3), np.uint8)
+    slice_image[:,:] = dominant_color      # (B, G, R)
 
-
+    #plt.imshow(slice_image)
+    #plt.tick_params(axis='y',left = False,labelleft = False)
+   # plt.xticks([0,50,100,150,200,255])
+   # plt.show()
+    
+    #cv2.imwrite(image_file+'_dom.jpg',cv2.cvtColor(slice_image, cv2.COLOR_RGB2BGR))
+    
+    return slice_image
 
