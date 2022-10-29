@@ -51,6 +51,27 @@ print(every_x_frame)
 a =every_x_frame
 
 
+start = time.time()
+
+while success:
+    print("a= "+ str(a))
+    vidcap.set(cv2.CAP_PROP_POS_MSEC,(a*1000))    # added this line 
+    success,image = vidcap.read()
+    print ('Read a new frame: ', success)
+    if(success):
+        image_cropped = image[img_crop_around:(image.shape[0]-img_crop_around), img_crop_around:(image.shape[1]-img_crop_around)]
+        cv2.imwrite('frames/frame%d.jpg'%count,image_cropped)
+        frames_got.append('frames/frame'+str(count)+'.jpg')
+        print('successfully written 10th frame')
+        minutes = int(a/60)
+        seconds = a%60
+        print('duration (M:S) = ' + str(minutes) + ':' + str(seconds))
+    
+    a+=every_x_frame
+    count+=1
+    if count > number_of_frames:
+        break
+
 
 
 
