@@ -32,3 +32,30 @@ seconds = duration%60
 print('duration (M:S) = ' + str(minutes) + ':' + str(seconds))
 
 cap.release()
+
+
+frames_got =[]
+
+vidcap = cv2.VideoCapture(video_file)
+count = 1
+success = True
+fps = int(vidcap.get(cv2.CAP_PROP_FPS))
+
+frame_count = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
+print('number of frames = ' + str(frame_count))
+end_frames_to_remove = fps*last_seconds_to_remove
+duration = (frame_count-end_frames_to_remove)/fps
+
+every_x_frame = math.floor(duration/number_of_frames)
+print(every_x_frame)
+a =every_x_frame
+
+
+
+
+
+
+
+
+
+
