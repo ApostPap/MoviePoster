@@ -72,7 +72,17 @@ while success:
     if count > number_of_frames:
         break
 
+       
+print(count)
+done = time.time()
+elapsed = done - start
+print(elapsed)
 
+sliced_images = []
+
+for a_frame in frames_got:
+    print(a_frame)
+    sliced_images.append(getDominantColor(image_file = a_frame,dominant_color_quality=3,slice_height=final_image_height,slice_width=a_slice_width))
 
 
 
